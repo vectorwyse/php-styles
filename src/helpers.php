@@ -9,13 +9,12 @@ function styles(Finder $finder = null, array $rules = []): Config
 {
     $rules = array_merge(require __DIR__.'/rules.php', $rules);
 
-    $config = Config::create()
-                ->setRiskyAllowed(true)
-                ->setRules($rules);
-    
     if ($finder) {
-        $config = $config->setFinder($finder);
+        $config = Config::create()->setFinder($finder);
+    } else {
+        $config = Config::create();
     }
 
-    return $config;
+    return $config->setRiskyAllowed(true)
+                    ->setRules($rules);
 }
